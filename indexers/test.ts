@@ -114,7 +114,7 @@ const uniswapToken = new web3.eth.Contract(ABI, address);
 async function storeCid() {
     const sender = web3.eth.accounts.wallet.add("0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e")
     const response = await uniswapToken.methods.storeCid("cid").send({ from: sender[0].address })
-    console.log("Response", response);
+    console.log("Response", response.transactionHash);
 }
 
 storeCid()

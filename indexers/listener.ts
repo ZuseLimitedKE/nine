@@ -1,6 +1,10 @@
+import { Web3, WebSocketProvider } from "web3";
+import fs from 'fs';
+import { contract } from "web3/lib/commonjs/eth.exports";
 
-import { Web3 } from "web3"
-const web3 = new Web3("http://127.0.0.1:8545/")
+const rawData = fs.readFileSync('./abi.json').toString();
+const abi = JSON.parse(rawData)
+// const web3 = new Web3("http://127.0.0.1:8545/")
 const ABI = [
     {
         "anonymous": false,
@@ -105,11 +109,21 @@ const ABI = [
         "type": "receive"
     }
 ]
-const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-web3.eth.getBlockNumber().then(console.log);
-const uniswapToken = new web3.eth.Contract(ABI, address);
 
-
-
-    const subscription = uniswapToken.events.CidStored();
-    subscription.on("data", console.log);
+async function main() {
+    try {
+        const web3 = new Web3(
+            new WebSocketProvider("wss://127.0.0.1:8545/")
+        );
+        const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+        const nineContract = new web3.eth.Contract(abi, address);
+        const subscription = nineContract.events.CidStored();
+        
+        subscription.on('data', (d) => {
+            console.log("Data Gotten =>", d)
+        })
+    } catch(err) {
+        console.log("Error Running", err);
+    }
+}
+main();
