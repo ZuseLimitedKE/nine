@@ -6,7 +6,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.27",
   networks: {
     sepolia: {
-      url: "https://base-sepolia.rpc-url", // Base Sepolia RPC URL
+      url: "https://sepolia.base.org", // Base Sepolia RPC URL
       accounts: [process.env.WALLET_PRIVATE_KEY], // Add your wallet's private key
     },
   },
