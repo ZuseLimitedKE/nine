@@ -1,13 +1,7 @@
-# Sample Hardhat Project
+# Important Contract Details
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+The contract is deployed at **0xd4c568f46a24bed84169628CaA5390b33A6f3c0E**.
 
-Try running some of the following tasks:
+The second deplot is at **0x625AEdf70310c69d0F1B52a6d95646962CfFC23d**.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
+The third deploy is at **0xA0023Da71C274906F4c851DD8407E961667B26D5**.
