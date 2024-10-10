@@ -3,7 +3,7 @@ pragma solidity ^0.8.27;
 
 contract Nine {
     // Event emitted when a CID is stored
-    event CidStored(address indexed sender, string cid, uint256 timestamp);
+    event CidStored(string payeeAddress, string cid, uint256 timestamp);
 
     // Event emitted when a payment is made
     event PaymentMade(
@@ -15,9 +15,9 @@ contract Nine {
     );
 
     // Function to store the CID
-    function storeCid(string memory cid) public {
+    function storeCid(string memory cid, string memory payeeAddress) public {
         // Emit the event with the CID and sender's address
-        emit CidStored(msg.sender, cid, block.timestamp);
+        emit CidStored(payeeAddress, cid, block.timestamp);
     }
 
     // Function to make a payment
