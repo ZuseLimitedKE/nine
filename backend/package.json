@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +9,9 @@
     "dev": "npx nodemon",
     "migrate": "drizzle-kit migrate --config ./src/db/src/drizzle.config.ts",
     "generate": "drizzle-kit generate --config ./src/db/src/drizzle.config.ts",
-    "studio": "drizzle-kit studio --config ./src/db/src/drizzle.config.ts"
+    "studio": "drizzle-kit studio --config ./src/db/src/drizzle.config.ts",
+    "build": "rm -rf dist && tsup",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",

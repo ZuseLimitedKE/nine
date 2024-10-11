@@ -1,11 +1,11 @@
 import Express from "express";
 import cors from "cors";
 import "dotenv/config";
-import { createRequestSchema } from "../types";
-import { storeData } from "../ipfs/store";
+import { createRequestSchema } from "./types";
+import { storeData } from "./ipfs/store";
 import { createRequestOnBlockchain } from "./create-request";
-import db, {users, eq} from "../db/src";
-import { sendNotification } from "../notifications/send-notification";
+import db, {users, eq} from "./db/src";
+import { sendNotification } from "./notifications/send-notification";
 
 const app = Express();
 app.use("/", cors({ origin: '*' }), Express.json())

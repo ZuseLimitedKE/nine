@@ -1,5 +1,5 @@
 
-import web3, {abi} from "../connection";
+import web3, {abi} from "./connection";
 import "dotenv/config";
 
 export async function createRequestOnBlockchain(payeeAddress: string, requestCID: string) {
