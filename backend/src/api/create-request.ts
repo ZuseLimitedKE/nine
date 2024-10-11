@@ -1,8 +1,8 @@
 
-import web3, {abi} from "./connection";
+import web3, {abi} from "../connection";
 import "dotenv/config";
 
-export async function createRequest(payeeAddress: string, requestCID: string) {
+export async function createRequestOnBlockchain(payeeAddress: string, requestCID: string) {
     try {
         //@ts-ignore
         const contract = new web3.eth.Contract(abi, process.env.CONTRACT_ADDRESS);
@@ -20,11 +20,3 @@ export async function createRequest(payeeAddress: string, requestCID: string) {
         throw "Could Not Create Request"
     }
 }
-
-(async () => {
-    try {
-        await createRequest("0xd4c568f46a24bed84169628CaA5390b33A6f3c0E", "TestCID");
-    } catch(err) {
-        console.log("Error =>", err);
-    }
-})();
