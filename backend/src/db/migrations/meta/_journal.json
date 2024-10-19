@@ -8,6 +8,27 @@
       "when": 1728676509443,
       "tag": "0000_cuddly_viper",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728684409513,
+      "tag": "0001_certain_silk_fever",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729363280027,
+      "tag": "0002_small_roxanne_simpson",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1729363458846,
+      "tag": "0003_groovy_masque",
+      "breakpoints": true
     }
   ]
 }
