@@ -26,7 +26,7 @@ app.post("/initAccount", async(req, res) => {
 })
 
 //@ts-ignore
-app.post("/createRequest", async(req, res) => {
+app.post("/request/create", async(req, res) => {
     try {
         let body = req.body;
         const parsed = createRequestSchema.safeParse(body);
