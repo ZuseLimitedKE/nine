@@ -9,18 +9,21 @@ import { sendNotification } from "./notifications/send-notification";
 import { readFromIPFS } from "./ipfs/read";
 
 const app = Express();
-app.use("/", cors({ origin: '*' }), Express.json())
+app.use("/", cors({ origin: '*' }), Express.json(), Express.urlencoded({ extended: false }))
 
 //@ts-ignore
 app.post("/initAccount", async (req, res) => {
     try {
-        const { address, expoToken } = req.body;
+        let address: string = req.body.address;
+        let expoToken: string = req.body.expoToken;
+        console.log("request body =>", req.body);
 
+        const lowerCaseAddress = address.toLowerCase();
         // Update DB with details
-        await db.insert(users).values({ address, expoToken });
+        await db.insert(users).values({ address: lowerCaseAddress, expoToken });
         return res.status(201).json({ message: "User Account Created" });
     } catch (err) {
-        console.log("Error Creating User Account");
+        console.log("Error Creating User Account", err);
         return res.status(500).json({ error: "Error Creating User Account" });
     }
 });
@@ -50,6 +53,7 @@ app.post("/request/create", async (req, res) => {
         if (parsed.success) {
             // Create request on IPFS
             let requestID = await storeData(parsed.data);
+            console.log("Request Data =>", parsed.data);
 
             // Create request on blockchain
             console.log(parsed.data.requestInfo.payeeAddress, requestID)
@@ -60,17 +64,27 @@ app.post("/request/create", async (req, res) => {
                 token: users.expoToken
             }).from(users)
                 //@ts-ignore
-                .where(eq(users.address, parsed.data.requestInfo.payeeAddress));
+                .where(eq(users.address, parsed.data.requestInfo.payerAddress.toLowerCase()));
 
+            console.log(1);
             if (userDetails.length <= 0) {
+                console.log("User Details =>", userDetails);
                 return res.status(400).json({ message: "Payer Account Does Not Exist" });
             }
+            console.log(2);
             await sendNotification([{
                 title: "You Have Received A Payment Request",
                 pushToken: userDetails[0].token,
                 body: `You have received a payment request of ${parsed.data.requestInfo.expectedAmount} wei`,
-                data: parsed
+                data: {
+                    amount: parsed.data.requestInfo.expectedAmount,
+                    requestID: requestID,
+                    requestedDate: parsed.data.requestInfo.timestamp,
+                    payeeAddress: parsed.data.requestInfo.payeeAddress,
+                    reason: parsed.data.contentData.reason
+                }
             }]);
+            console.log(3);
             return res.status(201).json({ requestID });
 
         } else {
